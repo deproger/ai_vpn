@@ -1,0 +1,25 @@
+{
+  "name": "kson_vpn",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon --trace-deprecation app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "node-telegram-bot-api": "^0.63.0",
+    "pg": "^8.13.1",
+    "punycode": "^2.3.1",
+    "sequelize": "^6.37.5",
+    "sequelize-cli": "^6.6.2"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.9"
+  }
+}
