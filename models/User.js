@@ -1,7 +1,17 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/database"); // Импортируйте ваш экземпляр Sequelize
 
-class User extends Model {}
+class User extends Model {
+  static async createIfNotExists(userData) {
+    const [user, created] = await User.findOrCreate({
+      where: { chatId: userData.chatId },
+
+      defaults: userData,
+    });
+
+    return user; // Возвращаем пользователя (существующего или нового)
+  }
+}
 
 User.init(
   {
@@ -17,7 +27,7 @@ User.init(
   },
   {
     sequelize,
-    modelName: "User ", // Убедитесь, что здесь нет лишних пробелов
+    modelName: "User",
   }
 );
 

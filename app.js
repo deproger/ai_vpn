@@ -6,6 +6,7 @@ const port = process.env.PORT || 3000; // Используйте перемен�
 const sequelize = require("./config/database");
 
 const User = require("./models/User");
+const Proxy = require("./models/Proxy");
 
 app.use(express.json());
 
@@ -23,14 +24,27 @@ sequelize
   .catch((err) => {
     console.error("Unable to connect to the database:", err);
   });
+// Sync the User model with the database
 
+sequelize
+  .sync()
+
+  .then(() => {
+    console.log("Tables have been created.");
+  })
+
+  .catch((err) => {
+    console.error("Error creating table:", err);
+  });
 // Import routes
 
-const appRoutes = require("./routes/webappRoutes");
+const wireguardRoutes = require("./routes/wireguardRoutes");
+const spaceproxyRoutes = require("./routes/spaceproxyRoutes");
 
 // Use routes
 
-app.use("/api/app", appRoutes);
+app.use("/api/wireguard", wireguardRoutes);
+app.use("/api/spaceproxy", spaceproxyRoutes);
 
 app.listen(port, () => {
   console.log(`Сервер запущен на http://localhost:${port}`);
