@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon --trace-deprecation app.js"
+    "dev": "nodemon --trace-deprecation app.js",
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
