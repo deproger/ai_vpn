@@ -1,0 +1,9 @@
+###  POST-запрос для продления прокси
+POST http://localhost:3000/api/spaceproxy/renewProxy HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGF0SWQiOjU0NzczNDExMDcsImlhdCI6MTczNzU0MjcyNCwiZXhwIjoxNzM3NTY0MzI0fQ.Quc0X1LU9wb9YmGKrCyTXuPQgcdeic2YJUzPdAsMq2c
+Content-Type: application/json
+
+{
+  "proxies": [5152862],
+  "period": 5
+}

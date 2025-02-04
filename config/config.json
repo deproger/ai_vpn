@@ -2,9 +2,10 @@
   "development": {
     "username": "username",
     "password": "password",
-    "database": "kson_vpn",
+    "database": "postgres",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "port": 1234
   },
   "test": {
     "username": "your_username",

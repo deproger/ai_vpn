@@ -1,37 +1,6 @@
-### Тестирование POST-запроса без токена
+### POST-запрос с валидным токеном и всеми параметрами
 POST http://localhost:3000/api/spaceproxy/buyProxy HTTP/1.1
-Content-Type: application/json
-
-{
-  "country": "US",
-  "period": 30,
-  "quantity": 1
-}
-
-### Тестирование POST-запроса с недействительным токеном
-POST http://localhost:3000/api/spaceproxy/buyProxy HTTP/1.1
-Authorization: Bearer invalid_token
-Content-Type: application/json
-
-{
-  "country": "US",
-  "period": 30,
-  "quantity": 1
-}
-
-### Тестирование POST-запроса с отсутствующими параметрами
-POST http://localhost:3000/api/spaceproxy/buyProxy HTTP/1.1
-Authorization: Bearer YOUR_VALID_TOKEN
-Content-Type: application/json
-
-{
-  "country": "US"
-  // period и quantity отсутствуют
-}
-
-### Тестирование POST-запроса с валидным токеном и всеми параметрами
-POST http://localhost:3000/api/spaceproxy/buyProxy HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGF0SWQiOjU0NzczNDExMDcsImlhdCI6MTczNzQ3NzY0NCwiZXhwIjoxNzM3NDgxMjQ0fQ.52fTP_GcXYawx30F6VFjYZZl22VKTVEmxB_eCcfqisQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGF0SWQiOjU0NzczNDExMDcsImlhdCI6MTczNzQ4NDY1NSwiZXhwIjoxNzM3NTA2MjU1fQ.olbXPn5D3IhroP_WYipJ6JEJcigxi57sTJ76iHi8xX8
 Content-Type: application/json
 
 {

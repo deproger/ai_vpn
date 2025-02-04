@@ -1,0 +1,139 @@
+{
+  "log": {
+    "loglevel": "warning",
+    "access": "/Users/vladimirebel/Library/Group Containers/group.hossin.asaadi.V2Box/access.log",
+    "dnsLog": false,
+    "error": "/Users/vladimirebel/Library/Group Containers/group.hossin.asaadi.V2Box/error.log"
+  },
+  "inbounds": [
+    {
+      "tag": "socks5",
+      "port": 64155,
+      "protocol": "shadowsocks",
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["tls", "http", "quic"]
+      },
+      "settings": {
+        "password": "123456",
+        "method": "chacha20-ietf-poly1305",
+        "ota": true,
+        "udp": false,
+        "level": 8,
+        "network": "tcp,udp"
+      },
+      "listen": "127.0.0.1"
+    },
+    {
+      "tag": "api",
+      "settings": {
+        "address": "[::1]"
+      },
+      "listen": "[::1]",
+      "protocol": "dokodemo-door",
+      "port": 64156
+    },
+    {
+      "listen": "127.0.0.1",
+      "tag": "inDns",
+      "port": 64157,
+      "settings": {
+        "timeout": 10,
+        "network": "tcp,udp",
+        "userLevel": 0,
+        "port": 53,
+        "address": "8.8.8.8"
+      },
+      "protocol": "dokodemo-door"
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "socks",
+      "streamSettings": {
+        "network": "tcp",
+        "tcpSettings": {
+          "header": {
+            "type": "none"
+          }
+        }
+      },
+      "tag": "proxy",
+      "settings": {
+        "servers": [
+          {
+            "address": "154.195.184.136",
+            "port": 63381,
+            "users": [
+              {
+                "pass": "6ETbtW6K",
+                "level": 8,
+                "email": "",
+                "user": "7tRsNFFB"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "api": {
+    "services": ["StatsService"],
+    "tag": "api"
+  },
+  "dns": {
+    "queryStrategy": "UseIP",
+    "disableCache": true,
+    "disableFallback": true,
+    "disableFallbackIfMatch": true,
+    "servers": [
+      {
+        "address": "8.8.8.8",
+        "skipFallback": false
+      }
+    ],
+    "tag": "dnsQuery"
+  },
+  "stats": {},
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "outboundTag": "api",
+        "inboundTag": ["api"],
+        "type": "field"
+      },
+      {
+        "outboundTag": "outDns",
+        "type": "field",
+        "inboundTag": ["inDns"]
+      },
+      {
+        "outboundTag": "proxy",
+        "type": "field",
+        "inboundTag": ["dnsQuery"]
+      }
+    ],
+    "balancers": []
+  },
+  "policy": {
+    "system": {
+      "statsOutboundUplink": true,
+      "statsInboundDownlink": true,
+      "statsInboundUplink": true,
+      "statsOutboundDownlink": true
+    },
+    "levels": {
+      "8": {
+        "downlinkOnly": 1,
+        "bufferSize": 0,
+        "statsUserDownlink": false,
+        "handshake": 4,
+        "uplinkOnly": 1,
+        "connIdle": 30,
+        "statsUserUplink": false
+      }
+    }
+  },
+  "transport": {}
+}

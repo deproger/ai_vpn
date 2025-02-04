@@ -1,6 +1,5 @@
 const crypto = require("crypto");
 const fs = require("fs");
-const User = require("../models/User");
 
 // Function to generate RSA key pair based on username and password
 const generateKeyPair = (username, password) => {
@@ -19,7 +18,9 @@ const generateKeyPair = (username, password) => {
     },
     privateKeyEncoding: {
       type: "pkcs8", // Recommended for private keys
-      format: "pem", // Format of the key
+      format: "pem", // Format of the key,
+      cipher: "aes-256-cbc",
+      passphrase: seed,
     },
   });
 
@@ -36,17 +37,17 @@ const generateKeyPair = (username, password) => {
 const generateWireGuardConfig = (username, password, endpoint, listenPort) => {
   const allowedIPs = "0.0.0.0/0";
   const { publicKey, privateKey } = generateKeyPair(username, password);
-  const config = `
-[Interface]
+  const config = `[Interface]
 PrivateKey = ${privateKey}
 Address = 10.0.0.1/24
 ListenPort = ${listenPort}
+DNS = 8.8.8.8
 
 [Peer]
 PublicKey = ${publicKey}
 Endpoint = ${endpoint}
 AllowedIPs = ${allowedIPs}
-`;
+PersistentKeepalive = 20`;
 
   // Save the configuration to a file
   fs.writeFileSync(`${username}_wg0.conf`, config.trim());
@@ -56,11 +57,9 @@ AllowedIPs = ${allowedIPs}
 };
 
 // Example usage
-const username = "exampleUser "; // Replace with the actual username
-const password = "examplePassword"; // Replace with the actual password
-const endpoint = "your_proxy_ip:51820"; // Replace with your proxy IP and port
-const listenPort = 51820; // Replace with your desired listen port
+const username = "7tRsNFFB"; // Replace with the actual username
+const password = "6ETbtW6K"; // Replace with the actual password
+const endpoint = "80.73.244.21:62645"; // Replace with your proxy IP and port
+const listenPort = 62645; // Replace with your desired listen port
 
-module.exports = {
-  generateWireGuardConfig,
-};
+generateWireGuardConfig(username, password, endpoint, listenPort);

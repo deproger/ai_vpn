@@ -1,7 +1,7 @@
 // routes/user.js
 const express = require("express");
 const router = express.Router();
-const { generateKeyPair, test } = require("../controllers/wireguardController");
+const { generateKeyPair } = require("../controllers/v2boxController");
 
 // Sample data
 let users = [
@@ -11,7 +11,7 @@ let users = [
 
 // GET all users
 router.get("/test", (req, res) => {
-  generateKeyPair();
+  // generateKeyPair();
   res.json(users);
 });
 
