@@ -7,6 +7,9 @@ const sequelize = require("./config/database");
 const Config = require("./models/Config");
 const User = require("./models/User");
 const vpnRoutes = require("./routes/vpnRoutes");
+var path = require('path');
+
+app.use(express.static(path.resolve('./public')));
 
 app.use(express.json());
 
