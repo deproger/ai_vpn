@@ -2,7 +2,7 @@ const { Sequelize } = require("sequelize");
 const config = require("./config.json");
 
 // Определите среду (development, test, production)
-const environment = process.env.NODE_ENV || "development";
+const environment = process.env.NODE_ENV || "production";
 const { username, password, database, host, dialect, port } =
   config[environment];
 

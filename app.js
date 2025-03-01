@@ -4,9 +4,9 @@ require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 3000; // Используйте переменную окружения или значение по умолчанию
 const sequelize = require("./config/database");
-
+const Config = require("./models/Config");
 const User = require("./models/User");
-const Proxy = require("./models/Proxy");
+const vpnRoutes = require("./routes/vpnRoutes");
 
 app.use(express.json());
 
@@ -20,15 +20,8 @@ sequelize
   .catch((err) => {
     console.error("Error creating table:", err);
   });
-// Import routes
 
-const v2boxRoutes = require("./routes/v2boxRoutes");
-const spaceproxyRoutes = require("./routes/spaceproxyRoutes");
-
-// Use routes
-
-app.use("/api/v2box", v2boxRoutes);
-app.use("/api/spaceproxy", spaceproxyRoutes);
+app.use("/api/vpn", vpnRoutes);
 
 app.listen(port, () => {
   console.log(`Сервер запущен на http://localhost:${port}`);

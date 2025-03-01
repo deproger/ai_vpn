@@ -24,7 +24,14 @@ bot.onText(/\/start/, (msg) => {
     "Здравствуйте! 👋🏼\nЭто бот установки VPNTYPE 🤖\nОсталось нажать всего 4 кнопки, чтобы установить VPN 🎯\n\nПопробуйте наш VPN сервис - это бесплатно!🕊️",
     {
       reply_markup: {
-        inline_keyboard: [[{ text: "🚀 Начать подключение", callback_data: "start_connection" }]],
+        inline_keyboard: [
+          [
+            {
+              text: "🚀 Начать подключение",
+              callback_data: "start_connection",
+            },
+          ],
+        ],
       },
     }
   );
@@ -39,9 +46,24 @@ bot.on("callback_query", async (query) => {
     bot.sendMessage(chatId, "Выберите сервер:", {
       reply_markup: {
         inline_keyboard: [
-          [{ text: "⚡ Выбрать самый быстрый сервер", callback_data: "fastest_server" }],
-          [{ text: "🌍 Выбрать сервер по стране", callback_data: "choose_country" }],
-          [{ text: "🔗 Выбрать сервер по протоколу", callback_data: "choose_protocol" }],
+          [
+            {
+              text: "⚡ Выбрать самый быстрый сервер",
+              callback_data: "fastest_server",
+            },
+          ],
+          [
+            {
+              text: "🌍 Выбрать сервер по стране",
+              callback_data: "choose_country",
+            },
+          ],
+          [
+            {
+              text: "🔗 Выбрать сервер по протоколу",
+              callback_data: "choose_protocol",
+            },
+          ],
         ],
       },
     });
@@ -63,7 +85,9 @@ bot.on("callback_query", async (query) => {
 
     const price = userPromoStatus[chatId] ? DISCOUNT_PRICE : DEFAULT_PRICE;
 
-    bot.sendMessage(chatId, `Данный сервер ${country.name} доступен только на Премиум тарифе.
+    bot.sendMessage(
+      chatId,
+      `Данный сервер ${country.name} доступен только на Премиум тарифе.
 
 Мы предоставляем 10 дней полного доступа к VPN всего за 1 рубль!
 
@@ -79,24 +103,43 @@ bot.on("callback_query", async (query) => {
 (Отменить подписку вы можете в любое время)
 - - -
 Тариф: Безлимит 1 месяц: ${price} в месяц
-Бесплатно 10 дней`, {
-      reply_markup: {
-        inline_keyboard: [
-          [{ text: `💳 Оплатить (${price})`, callback_data: `pay_${countryCode}` }],
-          [{ text: "🎟️ Ввести промокод", callback_data: `promo_${countryCode}` }],
-          [{ text: "🔙 Вернуться к выбору серверов", callback_data: "start_connection" }],
-        ],
-      },
-    });
+Бесплатно 10 дней`,
+      {
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                text: `💳 Оплатить (${price})`,
+                callback_data: `pay_${countryCode}`,
+              },
+            ],
+            [
+              {
+                text: "🎟️ Ввести промокод",
+                callback_data: `promo_${countryCode}`,
+              },
+            ],
+            [
+              {
+                text: "🔙 Вернуться к выбору серверов",
+                callback_data: "start_connection",
+              },
+            ],
+          ],
+        },
+      }
+    );
   }
 
   if (data === "fastest_server") {
     const price = userPromoStatus[chatId] ? DISCOUNT_PRICE : DEFAULT_PRICE;
 
-    bot.sendMessage(chatId, `⚡ Самый быстрый сервер: 🇹🇷 Стамбул доступен только на Премиум тарифе.
+    bot.sendMessage(
+      chatId,
+      `⚡ Самый быстрый сервер: 🇹🇷 Стамбул доступен только на Премиум тарифе.
 
 ✔️ Подключение до 10 устройств
-✔️ Скорость до 100 МБ/с
+✔️ Скорость до 1 ГБит/с
 ✔️ Надежные и безопасные соединения
 ✔️ 4 протокола (WireGuard, OpenVPN, VLESS, SS)
 ✔️ Доступ к более чем 50 странам и IP
@@ -107,15 +150,22 @@ bot.on("callback_query", async (query) => {
 (Отменить подписку вы можете в любое время)
 - - -
 Тариф: Безлимит 1 месяц: ${price} в месяц
-Бесплатно 10 дней`, {
-      reply_markup: {
-        inline_keyboard: [
-          [{ text: `💳 Оплатить (${price})`, callback_data: "pay_fastest" }],
-          [{ text: "🎟️ Ввести промокод", callback_data: "promo_fastest" }],
-          [{ text: "🔙 Вернуться к выбору серверов", callback_data: "start_connection" }],
-        ],
-      },
-    });
+Бесплатно 10 дней`,
+      {
+        reply_markup: {
+          inline_keyboard: [
+            [{ text: `💳 Оплатить (${price})`, callback_data: "pay_fastest" }],
+            [{ text: "🎟️ Ввести промокод", callback_data: "promo_fastest" }],
+            [
+              {
+                text: "🔙 Вернуться к выбору серверов",
+                callback_data: "start_connection",
+              },
+            ],
+          ],
+        },
+      }
+    );
   }
 
   if (data === "choose_protocol") {
@@ -135,7 +185,9 @@ bot.on("callback_query", async (query) => {
     const protocol = data.split("_")[1];
     const price = userPromoStatus[chatId] ? DISCOUNT_PRICE : DEFAULT_PRICE;
 
-    bot.sendMessage(chatId, `Вы выбрали протокол: ${protocol.toUpperCase()}.
+    bot.sendMessage(
+      chatId,
+      `Вы выбрали протокол: ${protocol.toUpperCase()}.
 
 Этот протокол доступен только на Премиум тарифе.
 
@@ -150,15 +202,32 @@ bot.on("callback_query", async (query) => {
 (Отменить подписку вы можете в любое время)
 - - -
 Тариф: Безлимит 1 месяц: ${price} в месяц
-Бесплатно 10 дней`, {
-      reply_markup: {
-        inline_keyboard: [
-          [{ text: `💳 Оплатить (${price})`, callback_data: `pay_${protocol}` }],
-          [{ text: "🎟️ Ввести промокод", callback_data: `promo_${protocol}` }],
-          [{ text: "🔙 Вернуться к выбору серверов", callback_data: "start_connection" }],
-        ],
-      },
-    });
+Бесплатно 10 дней`,
+      {
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                text: `💳 Оплатить (${price})`,
+                callback_data: `pay_${protocol}`,
+              },
+            ],
+            [
+              {
+                text: "🎟️ Ввести промокод",
+                callback_data: `promo_${protocol}`,
+              },
+            ],
+            [
+              {
+                text: "🔙 Вернуться к выбору серверов",
+                callback_data: "start_connection",
+              },
+            ],
+          ],
+        },
+      }
+    );
   }
 
   if (data.startsWith("promo_")) {
@@ -175,11 +244,22 @@ bot.on("callback_query", async (query) => {
   }
 
   if (data.startsWith("pay_")) {
-    bot.sendMessage(chatId, "✅ Оплата успешно завершена!\n\nВы получили доступ к VPN. 🎉", {
-      reply_markup: {
-        inline_keyboard: [[{ text: "🔙 Вернуться к выбору серверов", callback_data: "start_connection" }]],
-      },
-    });
+    bot.sendMessage(
+      chatId,
+      "✅ Оплата успешно завершена!\n\nВы получили доступ к VPN. 🎉",
+      {
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                text: "🔙 Вернуться к выбору серверов",
+                callback_data: "start_connection",
+              },
+            ],
+          ],
+        },
+      }
+    );
 
     if (userPromoStatus[chatId]) {
       delete userPromoStatus[chatId];
